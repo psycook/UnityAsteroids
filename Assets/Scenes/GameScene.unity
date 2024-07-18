@@ -247,13 +247,13 @@ LineRenderer:
   - {x: -0.5, y: -0.5, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.014705658
-        value: 0.024389267
+        time: 0.036880493
+        value: 0.113622665
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -399,6 +399,7 @@ MonoBehaviour:
       m_Action: Fire
       m_Flags: 0
     m_Flags: 0
+  MovementSpeed: 100
 --- !u!60 &109739941
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1142,7 +1143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1000758279
 Transform:
   m_ObjectHideFlags: 0
@@ -1206,13 +1207,13 @@ LineRenderer:
   - {x: -0.1, y: -0.52, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.004901886
-        value: 0.036582947
+        time: 0.0035171509
+        value: 0.087150574
         inSlope: 0
         outSlope: 0
         tangentMode: 0

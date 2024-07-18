@@ -6,6 +6,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private GameObject Thruster;
     [SerializeField] private InputAction MovementAction;
     [SerializeField] private InputAction FireAction;
+    [SerializeField] private float MovementSpeed = 100.0f;
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private float Width;
@@ -41,7 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         // roate the player based on left and right input
         Vector2 movement = MovementAction.ReadValue<Vector2>();
-        transform.Rotate(0, 0, -movement.x);
+        transform.Rotate(0, 0, -movement.x * Time.deltaTime * MovementSpeed);
 
         // thrust the player based on up input
         if (movement.y > 0)
@@ -65,7 +66,7 @@ public class PlayerBehaviour : MonoBehaviour
         // apply force to the player based on up input
         if(movement.y > 0)
         {
-            GetComponent<Rigidbody2D>().AddForce(transform.up * movement.y);
+            GetComponent<Rigidbody2D>().AddForce(transform.up * movement.y * Time.deltaTime * MovementSpeed);
         }
 
         // wrap the player around the screen
