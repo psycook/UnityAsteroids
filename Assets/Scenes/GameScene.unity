@@ -168,10 +168,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 415fa07edb1d0374a9497abfadfa5778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidsPrefabList:
+  ShipPrefabList: []
+  LargeAsteroidPrefabList:
   - {fileID: 4299814585972296552, guid: 520ccc909c3d55a468bafa5b66e867cb, type: 3}
   - {fileID: 4299814585972296552, guid: 82876e9ec36644e4b924ec2b988a4a45, type: 3}
   - {fileID: 4299814585972296552, guid: fccf1b3b02edb7842abfb2617d091dbf, type: 3}
+  MediumAsteroidPrefabList: []
+  SmallAsteroidPrefabList: []
   numberOfAsteroids: 7
   playerSafefyZone: {fileID: 1442422451}
   _currentWaveState: 0

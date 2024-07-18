@@ -89,7 +89,7 @@ public class GameSceneManagerBehaviour : MonoBehaviour
         while (true)
         {
             text.enabled = !text.enabled;
-            yield return new WaitForSeconds(AsteroidContants.FlashignTextSpeed);
+            yield return new WaitForSeconds(Constants.FlashignTextSpeed);
         }
     }
 }

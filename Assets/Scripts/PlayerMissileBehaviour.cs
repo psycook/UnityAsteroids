@@ -5,18 +5,28 @@ using UnityEngine;
 public class PlayerMissileBehaviour : MonoBehaviour
 {
     [SerializeField] private float Force = 100.0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Apply forward force to the missile based on the direction it is facing
-        GetComponent<Rigidbody2D>().AddForce(transform.up * Force);
+    
+    // ######################
+    // # Life Cycle Methods #
+    // ######################
 
-        // Destroy the missile after 2 seconds
+        void Start()
+    {
+        GetComponent<Rigidbody2D>().AddForce(transform.up * Force);
         Destroy(gameObject, 2.0f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {        
+    //On trigger
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Asteroid")
+        {
+            Destroy(gameObject);
+            other.gameObject.GetComponent<AsteroidBehaviour>().PlayerMissileHit();
+        }
     }
+
+    // ##################
+    // # Custom Methods #
+    // ##################
 }

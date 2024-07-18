@@ -2,18 +2,23 @@ using UnityEngine;
 
 public class AsteroidBehaviour : MonoBehaviour
 {
+    [SerializeField] public AsteroidSize AsteroidSize;
     [SerializeField] private ParticleSystem collisionParticles;
+    [SerializeField] private int MediumAsteroidCount = 3;
+    [SerializeField] private int SmallAsteroidCount = 3;
+
     public Vector2 ScreenBounds { get; set; }
     private float Width;
     private float Height;
-
     public bool hasCollidedWithAnotherAsteroid = false;
+    private AsteroidsWaveBehaviour ParentScript;
 
     void Start()
     {
         Width = transform.GetComponent<LineRenderer>().bounds.extents.x;
         Height = transform.GetComponent<LineRenderer>().bounds.extents.y;
         GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100, 100), Random.Range(-100, 100)));
+        ParentScript = GetComponentInParent<AsteroidsWaveBehaviour>();
     }
 
     void Update()
@@ -60,4 +65,21 @@ public class AsteroidBehaviour : MonoBehaviour
     {
         hasCollidedWithAnotherAsteroid = false;
     }   
+
+    // ##################
+    // # Custom Methods #
+    // ##################
+
+    public void PlayerMissileHit()
+    {
+        if(ParentScript)
+        {
+            Debug.Log("AsteroidBehaviour:PlayerMissileHit() ParentScript is not null");
+            ParentScript.AsteroidHit(gameObject);
+        }
+        else
+        {
+            Debug.Log("AsteroidBehaviour:PlayerMissileHit() ParentScript is null");
+        }
+    }
 }
