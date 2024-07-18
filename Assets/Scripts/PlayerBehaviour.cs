@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject Thruster;
+    [SerializeField] private GameObject MissileSpawn;
+    [SerializeField] private GameObject MissilePrefab;
     [SerializeField] private InputAction MovementAction;
     [SerializeField] private InputAction FireAction;
     [SerializeField] private float MovementSpeed = 100.0f;
@@ -40,6 +42,13 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if fire is pressed, fire a missile
+        if (FireAction.triggered)
+        {
+            Debug.Log("Fire!");
+            GameObject missile = Instantiate(MissilePrefab, MissileSpawn.transform.position, MissileSpawn.transform.rotation) as GameObject;
+        }
+
         // roate the player based on left and right input
         Vector2 movement = MovementAction.ReadValue<Vector2>();
         transform.Rotate(0, 0, -movement.x * Time.deltaTime * MovementSpeed);
