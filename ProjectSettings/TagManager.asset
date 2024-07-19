@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Asteroid
+  - SpawnPoint
+  - Spaceship
+  - SpaceshipMissile
+  - PlayerMissile
   layers:
   - Default
   - TransparentFX

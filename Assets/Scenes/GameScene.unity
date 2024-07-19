@@ -173,10 +173,17 @@ MonoBehaviour:
   - {fileID: 4299814585972296552, guid: 520ccc909c3d55a468bafa5b66e867cb, type: 3}
   - {fileID: 4299814585972296552, guid: 82876e9ec36644e4b924ec2b988a4a45, type: 3}
   - {fileID: 4299814585972296552, guid: fccf1b3b02edb7842abfb2617d091dbf, type: 3}
-  MediumAsteroidPrefabList: []
-  SmallAsteroidPrefabList: []
-  numberOfAsteroids: 7
-  playerSafefyZone: {fileID: 1442422451}
+  MediumAsteroidPrefabList:
+  - {fileID: 4299814585972296552, guid: 9dd4f944ebd78554db805c3154d41dff, type: 3}
+  - {fileID: 4299814585972296552, guid: 8e4143cd65c68ff41a94bce67c743e7d, type: 3}
+  - {fileID: 4299814585972296552, guid: 689be4e4c8c25d4478fdc0a166b1f636, type: 3}
+  SmallAsteroidPrefabList:
+  - {fileID: 4299814585972296552, guid: ab50248f874ca054faa1ce5c36ce3adc, type: 3}
+  - {fileID: 4299814585972296552, guid: f2b5eed1ec1a75f4db6281f571d49aa2, type: 3}
+  - {fileID: 4299814585972296552, guid: c92a4d0ef29c12e4b8c9cb03520ef7b4, type: 3}
+  SeparationDistance: 3
+  NumberOfAsteroids: 13
+  PlayerSafefyZone: {fileID: 1442422451}
   _currentWaveState: 0
 --- !u!1 &109739937
 GameObject:
@@ -1594,6 +1601,63 @@ MonoBehaviour:
   InfoText: {fileID: 328368528}
   ScoreText: {fileID: 1576908369}
   CurrentWaveState: 0
+--- !u!1001 &1358441256809551742
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.97629607
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.2164396
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 258079681066283185, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7780507959879282187, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+      propertyPath: m_Name
+      value: Spaceship
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1603,3 +1667,4 @@ SceneRoots:
   - {fileID: 823629047}
   - {fileID: 90052120}
   - {fileID: 109739939}
+  - {fileID: 1358441256809551742}

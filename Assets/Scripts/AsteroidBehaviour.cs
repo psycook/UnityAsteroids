@@ -4,9 +4,7 @@ public class AsteroidBehaviour : MonoBehaviour
 {
     [SerializeField] public AsteroidSize AsteroidSize;
     [SerializeField] private ParticleSystem collisionParticles;
-    [SerializeField] private int MediumAsteroidCount = 3;
-    [SerializeField] private int SmallAsteroidCount = 3;
-
+    private Camera MainCamera;
     public Vector2 ScreenBounds { get; set; }
     private float Width;
     private float Height;
@@ -15,10 +13,12 @@ public class AsteroidBehaviour : MonoBehaviour
 
     void Start()
     {
+        MainCamera = Camera.main;
+        ScreenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         Width = transform.GetComponent<LineRenderer>().bounds.extents.x;
         Height = transform.GetComponent<LineRenderer>().bounds.extents.y;
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100, 100), Random.Range(-100, 100)));
         ParentScript = GetComponentInParent<AsteroidsWaveBehaviour>();
+        GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100, 100), Random.Range(-100, 100)));
     }
 
     void Update()
@@ -74,12 +74,7 @@ public class AsteroidBehaviour : MonoBehaviour
     {
         if(ParentScript)
         {
-            Debug.Log("AsteroidBehaviour:PlayerMissileHit() ParentScript is not null");
             ParentScript.AsteroidHit(gameObject);
-        }
-        else
-        {
-            Debug.Log("AsteroidBehaviour:PlayerMissileHit() ParentScript is null");
         }
     }
 }

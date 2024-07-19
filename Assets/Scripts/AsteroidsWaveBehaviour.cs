@@ -7,13 +7,12 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
     [SerializeField] public GameObject[] LargeAsteroidPrefabList;
     [SerializeField] public GameObject[] MediumAsteroidPrefabList;
     [SerializeField] public GameObject[] SmallAsteroidPrefabList;
-    [SerializeField] private int numberOfAsteroids = 10;
-    [SerializeField] private GameObject playerSafefyZone;
+    [SerializeField] public float SeparationDistance = 3.0f;
+    [SerializeField] private int NumberOfAsteroids = 10;
+    [SerializeField] private GameObject PlayerSafefyZone;
 
-    private Camera mainCamera;
+    private Camera MainCamera;
     private Vector2 ScreenBounds;
-    private List<GameObject> activeAsteroids = new List<GameObject>();
-
 
     // #####################
     // # Lifecycle Methods #
@@ -21,8 +20,8 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
 
     void Start()
     {
-        mainCamera = Camera.main;
-        ScreenBounds = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z));
+        MainCamera = Camera.main;
+        ScreenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         InitialiseWave();
         Invoke("StateWave", 3.0f);
     }
@@ -53,53 +52,50 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
     // ##################
     // # Custom Methods #
     // ##################
-
     public void AsteroidHit(GameObject asteroid)
     {
         AsteroidBehaviour asteroidBehaviour = asteroid.GetComponent<AsteroidBehaviour>();
+        List<GameObject> spawnPoints;
 
-        Destroy(asteroid);
-
-        /*
-            if(asteroidBehaviour.AsteroidSize == AsteroidSize.Large)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    CreateAsteroid($"MediumAsteroid_{i}");
-                }
-            }
-            else if (asteroidBehaviour.AsteroidSize == AsteroidSize.Medium)
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    CreateAsteroid($"SmallAsteroid_{i}");
-                }
-            }
-        */
-    }
-
-
-    private void CreateAsteroid(string name)
-    {
-        int randomAsteroid = Random.Range(0, LargeAsteroidPrefabList.Length);
-        Vector3 randomPosition = new Vector3(Random.Range(-ScreenBounds.x, ScreenBounds.x), Random.Range(-ScreenBounds.y, ScreenBounds.y), 0);
-        while (playerSafefyZone.GetComponent<Collider2D>().bounds.Contains(randomPosition))
+        switch(asteroidBehaviour.AsteroidSize)
         {
-            randomPosition = new Vector3(Random.Range(-ScreenBounds.x, ScreenBounds.x), Random.Range(-ScreenBounds.y, ScreenBounds.y), 0);
+            case AsteroidSize.Large:
+                spawnPoints = Constants.FindChildrenWithTag(asteroid, "SpawnPoint");
+                Debug.Log($"Large - There are {spawnPoints.Count} spawn points on this asteroid");
+                for(int i = 0; i < spawnPoints.Count; i++)
+                {
+                    GameObject newAsteroid = CreateAsteroid($"Asteroid_Medium_{i}", MediumAsteroidPrefabList[Random.Range(0, MediumAsteroidPrefabList.Length)], gameObject);
+                    newAsteroid.transform.parent = gameObject.transform;
+                    newAsteroid.transform.position = spawnPoints[i].transform.position;
+                    newAsteroid.transform.rotation = spawnPoints[i].transform.rotation;
+                }
+                break;
+            case AsteroidSize.Medium:
+                spawnPoints = Constants.FindChildrenWithTag(asteroid, "SpawnPoint");
+                Debug.Log($"Medium - There are {spawnPoints.Count} spawn points on this asteroid");
+                for(int i = 0; i < spawnPoints.Count; i++)
+                {
+                    GameObject newAsteroid = CreateAsteroid($"Asteroid_Small_{i}", SmallAsteroidPrefabList[Random.Range(0, SmallAsteroidPrefabList.Length)], gameObject);
+                    newAsteroid.transform.parent = gameObject.transform;
+                    newAsteroid.transform.position = spawnPoints[i].transform.position;
+                    newAsteroid.transform.rotation = spawnPoints[i].transform.rotation;
+                }
+                break;
         }
-        GameObject newAsteroid = Instantiate(LargeAsteroidPrefabList[randomAsteroid], randomPosition, Quaternion.identity);
-        newAsteroid.name = name;
-        
+        Destroy(asteroid);
+    }
+    private GameObject CreateAsteroid(string name, GameObject prefab, GameObject parent)
+    {
         //set this gameobject as the new asteroid's parent
-        newAsteroid.transform.parent = gameObject.transform;
-
+        GameObject newAsteroid = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        newAsteroid.name = name;    
+        newAsteroid.transform.parent = parent.transform;
         newAsteroid.GetComponent<AsteroidBehaviour>().ScreenBounds = ScreenBounds;
-        activeAsteroids.Add(newAsteroid);
+        return newAsteroid;
     }
 
     private void InitialiseWave()
     {
-        Debug.Log("AsteroidsWaveBehaviour:InitialiseWave called");
         CurrentWaveState = AsteroidWaveState.Initialising;
     }
 
@@ -112,13 +108,39 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
 
     private void StateWave()
     {
-        CurrentWaveState = AsteroidWaveState.InProgress;
-        activeAsteroids.Clear();
+        Collider2D playerSafetyZone = PlayerSafefyZone.GetComponent<Collider2D>();
+        List<GameObject> ActiveAsteroids = new List<GameObject>();
+
         // create asteroids
-        for (int i = 0; i < numberOfAsteroids; i++)
+        for (int i = 0; i < NumberOfAsteroids; i++)
         {
-            CreateAsteroid($"Asteroid_{i}");
+            int randomAsteroid = Random.Range(0, LargeAsteroidPrefabList.Length);
+            GameObject prefab = LargeAsteroidPrefabList[randomAsteroid];
+            GameObject newAsteroid = CreateAsteroid($"Asteroid_{i}", prefab, gameObject);
+            float x = 0.0f, y= 0.0f;
+            bool isPositionValid = false;
+            while(!isPositionValid)
+            {
+                x = Random.Range(-ScreenBounds.x, ScreenBounds.x);
+                y = Random.Range(-ScreenBounds.y, ScreenBounds.y);
+                Vector3 potentialPosition = new Vector3(x,y,0);
+                if(!playerSafetyZone.bounds.Contains(potentialPosition))
+                {
+                    isPositionValid = true;
+                    foreach(GameObject asteroid in ActiveAsteroids)
+                    {
+                        if( (asteroid.transform.position - potentialPosition).magnitude < SeparationDistance) 
+                        {
+                            isPositionValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            newAsteroid.transform.position = new Vector3(x, y, 0);   
+            ActiveAsteroids.Add(newAsteroid); 
         }
+        CurrentWaveState = AsteroidWaveState.InProgress;
     }
 
     private void FinishWave()
