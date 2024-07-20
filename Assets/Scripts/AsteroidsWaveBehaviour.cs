@@ -61,7 +61,6 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
         {
             case AsteroidSize.Large:
                 spawnPoints = Constants.FindChildrenWithTag(asteroid, "SpawnPoint");
-                Debug.Log($"Large - There are {spawnPoints.Count} spawn points on this asteroid");
                 for(int i = 0; i < spawnPoints.Count; i++)
                 {
                     GameObject newAsteroid = CreateAsteroid($"Asteroid_Medium_{i}", MediumAsteroidPrefabList[Random.Range(0, MediumAsteroidPrefabList.Length)], gameObject);
@@ -72,7 +71,6 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
                 break;
             case AsteroidSize.Medium:
                 spawnPoints = Constants.FindChildrenWithTag(asteroid, "SpawnPoint");
-                Debug.Log($"Medium - There are {spawnPoints.Count} spawn points on this asteroid");
                 for(int i = 0; i < spawnPoints.Count; i++)
                 {
                     GameObject newAsteroid = CreateAsteroid($"Asteroid_Small_{i}", SmallAsteroidPrefabList[Random.Range(0, SmallAsteroidPrefabList.Length)], gameObject);

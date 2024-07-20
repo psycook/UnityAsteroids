@@ -22,7 +22,6 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     void Start()
     {
         // register for asteroid wave events
-        Debug.Log("GameSceneManagerBehaviour:Start, registering for asteroid wave events");
         AsteroidsWave.GetComponent<AsteroidsWaveBehaviour>().OnWaveStateChange += OnAsteroidWaveStateChanged;
     }
 
@@ -32,7 +31,6 @@ public class GameSceneManagerBehaviour : MonoBehaviour
 
     private void OnAsteroidWaveStateChanged(AsteroidWaveState newState)
     {
-        Debug.Log($"GameSceneManagerBehaviour:OnAsteroidWaveStateChanged, event is {newState}");
         CurrentWaveState = newState;
         switch(CurrentWaveState)
         {

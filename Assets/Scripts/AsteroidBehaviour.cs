@@ -18,7 +18,9 @@ public class AsteroidBehaviour : MonoBehaviour
         Width = transform.GetComponent<LineRenderer>().bounds.extents.x;
         Height = transform.GetComponent<LineRenderer>().bounds.extents.y;
         ParentScript = GetComponentInParent<AsteroidsWaveBehaviour>();
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100, 100), Random.Range(-100, 100)));
+        //point in a random direction
+        transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        GetComponent<Rigidbody2D>().AddForce(transform.up * Random.Range(50.0f, 150.0f));
     }
 
     void Update()
