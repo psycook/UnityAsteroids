@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidsWaveBehaviour : MonoBehaviour
+public class WaveBehaviour : MonoBehaviour
 {
     [SerializeField] private float InitialiseDelay = 3.0f;
     [SerializeField] public GameObject[] ShipPrefabList;
     [SerializeField] public GameObject[] LargeAsteroidPrefabList;
     [SerializeField] public GameObject[] MediumAsteroidPrefabList;
     [SerializeField] public GameObject[] SmallAsteroidPrefabList;
+    [SerializeField] private GameObject EnemyShipPrefab;
+    [SerializeField] private int EnemyShipFrequency = 1000;
     [SerializeField] public float SeparationDistance = 3.0f;
-    [SerializeField] private int NumberOfAsteroids = 10;
+    [SerializeField] public int NumberOfAsteroids = 3;
     [SerializeField] private GameObject PlayerSafefyZone;
 
     private Camera MainCamera;
@@ -23,12 +25,15 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
     {
         MainCamera = Camera.main;
         ScreenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
-        InitialiseWave();
-        Invoke("StateWave", InitialiseDelay);
     }
 
     void Update()
     {
+        if (Random.Range(0, EnemyShipFrequency) == 0)
+        {
+            GameObject enemyShip = CreateEnemyShip("EnemyShip", EnemyShipPrefab, gameObject);
+            enemyShip.transform.position = new Vector3(-ScreenBounds.x, Random.Range(-ScreenBounds.y, ScreenBounds.y), 0);
+        }
     }
 
     // #################
@@ -50,13 +55,34 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
         }
     }
 
+    public delegate void OnAsteroidHit(int points);
+
+    public event OnAsteroidHit OnAsteroidHitEvent;
+
+    public void AsteroidHitEvent(int points)
+    {
+        OnAsteroidHitEvent?.Invoke(points);
+    }
+
+    public delegate void OnEnemyShipHit(int points);
+
+    public event OnEnemyShipHit OnEnemyShipHitEvent;
+
+    public void EnemyShipHitEvent(int points)
+    {
+        OnEnemyShipHitEvent?.Invoke(points);
+    }
+
     // ##################
     // # Custom Methods #
     // ##################
+
     public void AsteroidHit(GameObject asteroid)
     {
         AsteroidBehaviour asteroidBehaviour = asteroid.GetComponent<AsteroidBehaviour>();
         List<GameObject> spawnPoints;
+
+        AsteroidHitEvent(asteroidBehaviour.Points);
 
         switch (asteroidBehaviour.AsteroidSize)
         {
@@ -83,6 +109,13 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
         }
         Destroy(asteroid);
     }
+
+    public void EnemyShipHit(GameObject enemyShip)
+    {
+        EnemyShipHitEvent(enemyShip.GetComponent<EnemyShipBehaviour>().Points);  
+        Destroy(enemyShip);
+    }
+
     private GameObject CreateAsteroid(string name, GameObject prefab, GameObject parent)
     {
         //set this gameobject as the new asteroid's parent
@@ -93,12 +126,23 @@ public class AsteroidsWaveBehaviour : MonoBehaviour
         return newAsteroid;
     }
 
-    private void InitialiseWave()
+    private GameObject CreateEnemyShip(string name, GameObject prefab, GameObject parent)
     {
-        CurrentWaveState = AsteroidWaveState.Initialising;
+        //set this gameobject as the new asteroid's parent
+        GameObject newEnemyShip = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        newEnemyShip.name = name;
+        newEnemyShip.transform.parent = parent.transform;
+        newEnemyShip.GetComponent<EnemyShipBehaviour>().ScreenBounds = ScreenBounds;
+        return newEnemyShip;
     }
 
-    private void NextWave()
+    public void InitialiseWave()
+    {
+        CurrentWaveState = AsteroidWaveState.Initialising;
+        Invoke("StateWave", InitialiseDelay);
+    }
+
+    public void NextWave()
     {
         FinishWave();
         InitialiseWave();

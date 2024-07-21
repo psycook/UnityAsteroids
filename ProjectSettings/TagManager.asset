@@ -6,9 +6,9 @@ TagManager:
   tags:
   - Asteroid
   - SpawnPoint
-  - Spaceship
-  - SpaceshipMissile
   - PlayerMissile
+  - EnemyShip
+  - EnemyShipMissle
   layers:
   - Default
   - TransparentFX

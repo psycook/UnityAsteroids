@@ -182,6 +182,8 @@ MonoBehaviour:
   - {fileID: 4299814585972296552, guid: ab50248f874ca054faa1ce5c36ce3adc, type: 3}
   - {fileID: 4299814585972296552, guid: f2b5eed1ec1a75f4db6281f571d49aa2, type: 3}
   - {fileID: 4299814585972296552, guid: c92a4d0ef29c12e4b8c9cb03520ef7b4, type: 3}
+  EnemyShipPrefab: {fileID: 7780507959879282187, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+  EnemyShipFrequency: 2000
   SeparationDistance: 3
   NumberOfAsteroids: 5
   PlayerSafefyZone: {fileID: 1442422451}
@@ -597,7 +599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLACEHOLDER
+  m_text: GET READY!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1182,7 +1184,7 @@ Transform:
   m_GameObject: {fileID: 1000758278}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1461,7 +1463,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLACEHOLDER
+  m_text: SCORE 00000000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

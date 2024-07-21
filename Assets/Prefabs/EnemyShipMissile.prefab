@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 6262994635174231210}
   - component: {fileID: 8379564687955367809}
   m_Layer: 0
-  m_Name: SpaceshipMissile
-  m_TagString: SpaceshipMissile
+  m_Name: EnemyShipMissile
+  m_TagString: EnemyShipMissle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,3 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Force: 150
+  Duration: 2

@@ -27,7 +27,6 @@ public class PlayerMisslePool : MonoBehaviour
                 return missile;
             }
         }
-
         if (CanGrow)
         {
             GameObject missile = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
@@ -37,5 +36,4 @@ public class PlayerMisslePool : MonoBehaviour
         }
         return null;
     }
-
 }

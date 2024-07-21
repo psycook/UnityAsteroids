@@ -73,6 +73,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsThrusting)
         {
             Thruster.SetActive(true);
+            //randomize the y scale of the thruster
+            float yScale = Random.Range(0.5f, 1.0f);
+            Thruster.transform.localScale = new Vector3(1, yScale, 1);
         }
         else
         {

@@ -11,6 +11,12 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private AsteroidWaveState CurrentWaveState;
 
+    private int WaveNumber = 0;
+
+    private int StartingAstroids = 3;
+
+    private WaveBehaviour AsteroidsWaveBehaviour;
+
 
     private Coroutine FlashingTextCoroutine;
     private int Score = 0;
@@ -22,7 +28,11 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     void Start()
     {
         // register for asteroid wave events
-        AsteroidsWave.GetComponent<AsteroidsWaveBehaviour>().OnWaveStateChange += OnAsteroidWaveStateChanged;
+        AsteroidsWaveBehaviour = AsteroidsWave.GetComponent<WaveBehaviour>();
+        AsteroidsWaveBehaviour.OnWaveStateChange += OnAsteroidWaveStateChanged;
+        AsteroidsWaveBehaviour.OnAsteroidHitEvent += AddScore;
+        AsteroidsWaveBehaviour.OnEnemyShipHitEvent += AddScore;
+        Invoke("NextWave", 1.0f);
     }
 
     // ##################
@@ -51,12 +61,12 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     public void AddScore(int score)
     {
         Score += score;
-        ScoreText.text = "SCORE " + Score.ToString("000000");
+        ScoreText.text = "SCORE " + Score.ToString("00000000");
     }
 
     private void DisplayScore()
     {
-        ScoreText.text = "SCORE " + Score.ToString("000000");
+        ScoreText.text = "SCORE " + Score.ToString("00000000");
     }
 
     private void DisplayInfo(string text, bool flashing)
@@ -76,6 +86,12 @@ public class GameSceneManagerBehaviour : MonoBehaviour
             StopCoroutine(FlashingTextCoroutine);
         }
         InfoText.enabled = false;
+    }
+
+    void NextWave() 
+    {
+        WaveNumber++;
+        AsteroidsWaveBehaviour.InitialiseWave();
     }
 
     // ##############

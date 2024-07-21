@@ -10,9 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 258079681066283185}
   - component: {fileID: 7293823179223294803}
+  - component: {fileID: 7221108879050903199}
+  - component: {fileID: 6432018479012684443}
+  - component: {fileID: -1602348575342955413}
   m_Layer: 0
-  m_Name: Spaceship
-  m_TagString: Spaceship
+  m_Name: EnemyShip
+  m_TagString: EnemyShip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,3 +149,99 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
+--- !u!50 &7221108879050903199
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780507959879282187}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &6432018479012684443
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780507959879282187}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.29551744, y: 0.6970415}
+      - {x: -0.2954195, y: 0.6948596}
+      - {x: -0.4927109, y: 0.3099607}
+      - {x: -0.9103413, y: 0.0044109346}
+      - {x: -0.49252737, y: -0.3063163}
+      - {x: 0.4955386, y: -0.3092851}
+      - {x: 0.910281, y: 0.007469654}
+      - {x: 0.4891703, y: 0.30429527}
+  m_UseDelaunayMesh: 0
+--- !u!114 &-1602348575342955413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780507959879282187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63c56269dfc743eeafb14eaaa2842cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinSpeed: 50
+  MaxSpeed: 100
+  Points: 100
+  explosionParticles: {fileID: 2451475642770125922, guid: 0391cb46432a8468db665a0f99cdd399, type: 3}
