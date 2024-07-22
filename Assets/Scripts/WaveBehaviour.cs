@@ -139,17 +139,17 @@ public class WaveBehaviour : MonoBehaviour
     public void InitialiseWave()
     {
         CurrentWaveState = AsteroidWaveState.Initialising;
-        Invoke("StateWave", InitialiseDelay);
+        Invoke("StartWave", InitialiseDelay);
     }
 
     public void NextWave()
     {
         FinishWave();
         InitialiseWave();
-        Invoke("StateWave", 3.0f);
+        Invoke("StartWave", 3.0f);
     }
 
-    private void StateWave()
+    private void StartWave()
     {
         Collider2D playerSafetyZone = PlayerSafefyZone.GetComponent<Collider2D>();
         List<GameObject> ActiveAsteroids = new List<GameObject>();
