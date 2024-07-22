@@ -9,17 +9,13 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     [SerializeField] private GameObject AsteroidsWave;
     [SerializeField] private TextMeshProUGUI InfoText;
     [SerializeField] private TextMeshProUGUI ScoreText;
+    [SerializeField] private TextMeshProUGUI WaveText;
     [SerializeField] private AsteroidWaveState CurrentWaveState;
-
-    private int WaveNumber = 0;
-
-    private int StartingAstroids = 3;
-
     private WaveBehaviour AsteroidsWaveBehaviour;
-
-
     private Coroutine FlashingTextCoroutine;
+    private int WaveNumber = 0;
     private int Score = 0;
+    private int Lives = 3;
 
     // #####################
     // # Lifecycle Methods #
@@ -69,6 +65,11 @@ public class GameSceneManagerBehaviour : MonoBehaviour
         ScoreText.text = "SCORE " + Score.ToString("00000000");
     }
 
+    private void DisplayWave()
+    {
+        ScoreText.text = "WAVE " + WaveNumber.ToString("00");
+    }
+
     private void DisplayInfo(string text, bool flashing)
     {
         InfoText.text = text;
@@ -91,6 +92,7 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     void NextWave() 
     {
         WaveNumber++;
+        DisplayWave();
         AsteroidsWaveBehaviour.InitialiseWave();
     }
 

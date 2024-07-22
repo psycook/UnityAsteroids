@@ -12,10 +12,11 @@ public class WaveBehaviour : MonoBehaviour
     [SerializeField] private int EnemyShipFrequency = 1000;
     [SerializeField] public float SeparationDistance = 3.0f;
     [SerializeField] public int NumberOfAsteroids = 3;
+    [SerializeField] public int MaxEnemies = 2;
     [SerializeField] private GameObject PlayerSafefyZone;
-
     private Camera MainCamera;
     private Vector2 ScreenBounds;
+    private int NumberOfEnemies = 0;
 
     // #####################
     // # Lifecycle Methods #
@@ -29,10 +30,11 @@ public class WaveBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (Random.Range(0, EnemyShipFrequency) == 0)
+        if (Random.Range(0, EnemyShipFrequency) == 0 && NumberOfEnemies < MaxEnemies)
         {
             GameObject enemyShip = CreateEnemyShip("EnemyShip", EnemyShipPrefab, gameObject);
             enemyShip.transform.position = new Vector3(-ScreenBounds.x, Random.Range(-ScreenBounds.y, ScreenBounds.y), 0);
+            NumberOfEnemies++;
         }
     }
 
@@ -112,7 +114,8 @@ public class WaveBehaviour : MonoBehaviour
 
     public void EnemyShipHit(GameObject enemyShip)
     {
-        EnemyShipHitEvent(enemyShip.GetComponent<EnemyShipBehaviour>().Points);  
+        EnemyShipHitEvent(enemyShip.GetComponent<EnemyBehaviour>().Points);  
+        NumberOfEnemies--;
         Destroy(enemyShip);
     }
 
@@ -132,7 +135,7 @@ public class WaveBehaviour : MonoBehaviour
         GameObject newEnemyShip = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         newEnemyShip.name = name;
         newEnemyShip.transform.parent = parent.transform;
-        newEnemyShip.GetComponent<EnemyShipBehaviour>().ScreenBounds = ScreenBounds;
+        newEnemyShip.GetComponent<EnemyBehaviour>().ScreenBounds = ScreenBounds;
         return newEnemyShip;
     }
 

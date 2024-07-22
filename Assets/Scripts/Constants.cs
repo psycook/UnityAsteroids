@@ -40,3 +40,9 @@ public enum AsteroidSize
     Medium,
     Large
 }
+
+public enum EnemySize 
+{
+    Small,
+    Large
+}

@@ -6,6 +6,8 @@ public class AsteroidBehaviour : MonoBehaviour
     [SerializeField] public AsteroidSize AsteroidSize;
     [SerializeField] private ParticleSystem collisionParticles;
     [SerializeField] private ParticleSystem explosionParticles;
+    [SerializeField] public float MinSpeed = 25.0f;
+    [SerializeField] public float MaxSpeed = 75.0f;
     [SerializeField] public int Points = 10;
     private Camera MainCamera;
     public Vector2 ScreenBounds { get; set; }
@@ -22,7 +24,7 @@ public class AsteroidBehaviour : MonoBehaviour
         Height = transform.GetComponent<LineRenderer>().bounds.extents.y;
         ParentScript = GetComponentInParent<WaveBehaviour>();
         transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
-        GetComponent<Rigidbody2D>().AddForce(transform.up * Random.Range(50.0f, 150.0f));
+        GetComponent<Rigidbody2D>().AddForce(transform.up * Random.Range(MinSpeed, MaxSpeed));
     }
 
     void Update()

@@ -34,7 +34,7 @@ public class PlayerMissileBehaviour : MonoBehaviour
         else if (other.gameObject.tag == "EnemyShip")
         {
             DisableMissle();
-            other.gameObject.GetComponent<EnemyShipBehaviour>().PlayerMissileHit();
+            other.gameObject.GetComponent<EnemyBehaviour>().PlayerMissileHit();
         }
     }
 

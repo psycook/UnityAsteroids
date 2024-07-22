@@ -8,7 +8,7 @@ TagManager:
   - SpawnPoint
   - PlayerMissile
   - EnemyShip
-  - EnemyShipMissle
+  - EnemyMissile
   layers:
   - Default
   - TransparentFX
