@@ -183,11 +183,11 @@ MonoBehaviour:
   - {fileID: 4299814585972296552, guid: f2b5eed1ec1a75f4db6281f571d49aa2, type: 3}
   - {fileID: 4299814585972296552, guid: c92a4d0ef29c12e4b8c9cb03520ef7b4, type: 3}
   EnemyShipPrefab: {fileID: 7780507959879282187, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+  PlayerSafefyZone: {fileID: 1442422451}
   EnemyShipFrequency: 1000
   SeparationDistance: 3
   NumberOfAsteroids: 3
   MaxEnemies: 2
-  PlayerSafefyZone: {fileID: 1442422451}
   _currentWaveState: 0
 --- !u!4 &297186492 stripped
 Transform:
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 304144675}
   m_Layer: 0
-  m_Name: '### Managers ###'
+  m_Name: --- Managers ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,6 +496,53 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1316340787}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &553343290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553343292}
+  - component: {fileID: 553343291}
+  m_Layer: 0
+  m_Name: PlayerMissilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &553343291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553343290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1461c926c53e41088207b9a6029c631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 853655630889574089, guid: 42c94f668227010499e69711d7e955a5, type: 3}
+  PoolSize: 10
+  CanGrow: 1
+--- !u!4 &553343292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553343290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -41.68598, y: 6.186481, z: 324.37375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &582602067
 PrefabInstance:
@@ -881,7 +928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 823629047}
   m_Layer: 0
-  m_Name: '### User Interface ###'
+  m_Name: --- User Interface ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -914,7 +961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1316340787}
   m_Layer: 0
-  m_Name: '### Environment ###'
+  m_Name: --- Environment ---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1410,6 +1457,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8862839662917914327, guid: c3cc1bc8bb0f5412185fe3c88c158ddf, type: 3}
   m_PrefabInstance: {fileID: 1616922772}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1992728085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1992728087}
+  - component: {fileID: 1992728086}
+  m_Layer: 0
+  m_Name: EnemyMissilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1992728086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992728085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e532c7a1cc54efb830ea5fe0e4baef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 853655630889574089, guid: c17e6660d29519349b51b6c8c9f3c581, type: 3}
+  PoolSize: 10
+  CanGrow: 1
+--- !u!4 &1992728087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992728085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -41.68598, y: 6.186481, z: 324.37375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2011697381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,6 +1626,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4737522686513843787, guid: 956092510293747938429b59e796dea2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7739270154838860024, guid: 956092510293747938429b59e796dea2, type: 3}
+      propertyPath: MissilePool
+      value: 
+      objectReference: {fileID: 553343291}
     - target: {fileID: 8862839662917914327, guid: 956092510293747938429b59e796dea2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1572,7 +1674,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4484989701826017156, guid: 956092510293747938429b59e796dea2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1587,3 +1690,5 @@ SceneRoots:
   - {fileID: 90052120}
   - {fileID: 604574257333826348}
   - {fileID: 2011697382}
+  - {fileID: 1992728087}
+  - {fileID: 553343292}

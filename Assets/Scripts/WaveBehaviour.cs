@@ -9,11 +9,12 @@ public class WaveBehaviour : MonoBehaviour
     [SerializeField] public GameObject[] MediumAsteroidPrefabList;
     [SerializeField] public GameObject[] SmallAsteroidPrefabList;
     [SerializeField] private GameObject EnemyShipPrefab;
+    [SerializeField] private GameObject PlayerSafefyZone;
     [SerializeField] private int EnemyShipFrequency = 1000;
     [SerializeField] public float SeparationDistance = 3.0f;
     [SerializeField] public int NumberOfAsteroids = 3;
     [SerializeField] public int MaxEnemies = 2;
-    [SerializeField] private GameObject PlayerSafefyZone;
+    
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private int NumberOfEnemies = 0;

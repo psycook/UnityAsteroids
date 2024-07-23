@@ -8,7 +8,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private InputAction MovementAction;
     [SerializeField] private InputAction FireAction;
     [SerializeField] private float MovementSpeed = 100.0f;
-    private PlayerMisslePool MissilePool;
+    [SerializeField] private PlayerMissilePool MissilePool;
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private float Width;
@@ -37,7 +37,6 @@ public class PlayerBehaviour : MonoBehaviour
         ScreenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         Width = transform.GetComponent<LineRenderer>().bounds.extents.x;
         Height = transform.GetComponent<LineRenderer>().bounds.extents.y;
-        MissilePool = GetComponent<PlayerMisslePool>();
     }
 
     // Update is called once per frame

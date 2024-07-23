@@ -15,6 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
     private WaveBehaviour ParentScript;
     private EnemySize[] PossibleSizesArray = new EnemySize[] { EnemySize.Small, EnemySize.Large, EnemySize.Large };
     private EnemySize Size;
+    private EnemyMissilePool MissilePool;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class EnemyBehaviour : MonoBehaviour
         transform.Rotate(0, 0, Random.Range(-30, 30));
         GetComponent<Rigidbody2D>().AddForce(transform.right * Random.Range(MinSpeed, MaxSpeed));
         ParentScript = GetComponentInParent<WaveBehaviour>();
+        MissilePool = GameObject.Find("EnemyMissilePool").GetComponent<EnemyMissilePool>();
     }
 
     // Update is called once per frame
@@ -74,8 +76,15 @@ public class EnemyBehaviour : MonoBehaviour
                 float distance = Random.Range(1.0f, (Size == EnemySize.Small) ? 2.0f : 4.0f);
                 Vector3 targetPosition = new Vector3(playerPosition.x + Mathf.Cos(angle) * distance, playerPosition.y + Mathf.Sin(angle) * distance, 0);
                 Vector3 direction = (targetPosition - transform.position).normalized;
-                GameObject missile = Instantiate(MissilePrefab, transform.position, Quaternion.identity) as GameObject;
-                missile.GetComponent<Rigidbody2D>().AddForce(direction * MissleSpeed);
+
+                //GameObject missile = Instantiate(MissilePrefab, MissileSpawn.transform.position, MissileSpawn.transform.rotation) as GameObject;
+                GameObject missile = MissilePool.GetMissile();
+                if (missile != null)
+                {
+                    missile.transform.position = transform.position;
+                    missile.transform.rotation = Quaternion.identity;
+                    missile.GetComponent<Rigidbody2D>().AddForce(direction * MissleSpeed);
+                }
             }
             else
             {

@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 2232317487546002515}
   - component: {fileID: 7195138899454357516}
   - component: {fileID: 7739270154838860024}
-  - component: {fileID: 4484989701826017156}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -338,21 +337,6 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   MovementSpeed: 100
---- !u!114 &4484989701826017156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4737522686513843787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1461c926c53e41088207b9a6029c631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 853655630889574089, guid: 42c94f668227010499e69711d7e955a5, type: 3}
-  PoolSize: 10
-  CanGrow: 1
 --- !u!1 &6836791430561003153
 GameObject:
   m_ObjectHideFlags: 0

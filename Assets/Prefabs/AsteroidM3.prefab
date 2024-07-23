@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 1941813659049840529}
   - component: {fileID: 3843415213005021937}
   - component: {fileID: 6480510810863225588}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AsteroidM3
   m_TagString: Asteroid
   m_Icon: {fileID: 0}
@@ -314,6 +314,8 @@ MonoBehaviour:
   AsteroidSize: 1
   collisionParticles: {fileID: 1403252351322937140, guid: 92ab1e295c5b74b408459e8811e59f8d, type: 3}
   explosionParticles: {fileID: 2451475642770125922, guid: 0391cb46432a8468db665a0f99cdd399, type: 3}
+  MinSpeed: 25
+  MaxSpeed: 75
   Points: 25
   hasCollidedWithAnotherAsteroid: 0
 --- !u!1 &4905427780396296758
