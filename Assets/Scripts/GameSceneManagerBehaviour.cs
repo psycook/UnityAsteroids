@@ -7,15 +7,17 @@ using UnityEngine;
 public class GameSceneManagerBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject AsteroidsWave;
+    [SerializeField] private GameObject PlayerLife;
     [SerializeField] private TextMeshProUGUI InfoText;
     [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private TextMeshProUGUI WaveText;
     [SerializeField] private AsteroidWaveState CurrentWaveState;
+    [SerializeField] private int Lives = 3;
+
     private WaveBehaviour AsteroidsWaveBehaviour;
     private Coroutine FlashingTextCoroutine;
     private int WaveNumber = 0;
     private int Score = 0;
-    private int Lives = 3;
 
     // #####################
     // # Lifecycle Methods #
@@ -28,6 +30,7 @@ public class GameSceneManagerBehaviour : MonoBehaviour
         AsteroidsWaveBehaviour.OnWaveStateChange += OnAsteroidWaveStateChanged;
         AsteroidsWaveBehaviour.OnAsteroidHitEvent += AddScore;
         AsteroidsWaveBehaviour.OnEnemyShipHitEvent += AddScore;
+        UpdateLives();
         Invoke("NextWave", 1.0f);
     }
 
@@ -95,6 +98,34 @@ public class GameSceneManagerBehaviour : MonoBehaviour
         DisplayWave();
         AsteroidsWaveBehaviour.InitialiseWave();
     }
+
+    public void DecrementLives()
+    {
+        Lives--;
+        UpdateLives();
+        if (Lives == 0)
+        {
+            DisplayInfo("GAME OVER", true);
+        }
+    }
+
+    private void UpdateLives()
+    {
+        // find the DipalyLives object
+        GameObject displayLives = GameObject.Find("DisplayLives");
+        // remove all children
+        foreach (Transform child in displayLives.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        // add the correct number of lives
+        for (int i = 0; i < Lives; i++)
+        {
+            GameObject life = Instantiate(PlayerLife, displayLives.transform);
+            life.transform.localPosition = new Vector3(i * 0.35f, 0, 0);
+        }
+    }
+
 
     // ##############
     // # Coroutines #

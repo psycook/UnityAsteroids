@@ -37,6 +37,7 @@ public class PlayerBehaviour : MonoBehaviour
         ScreenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
         Width = transform.GetComponent<LineRenderer>().bounds.extents.x;
         Height = transform.GetComponent<LineRenderer>().bounds.extents.y;
+        MissilePool = GameObject.Find("PlayerMissilePool").GetComponent<PlayerMissilePool>();
     }
 
     // Update is called once per frame

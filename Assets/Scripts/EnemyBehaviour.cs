@@ -76,7 +76,6 @@ public class EnemyBehaviour : MonoBehaviour
                 float distance = Random.Range(1.0f, (Size == EnemySize.Small) ? 2.0f : 4.0f);
                 Vector3 targetPosition = new Vector3(playerPosition.x + Mathf.Cos(angle) * distance, playerPosition.y + Mathf.Sin(angle) * distance, 0);
                 Vector3 direction = (targetPosition - transform.position).normalized;
-
                 //GameObject missile = Instantiate(MissilePrefab, MissileSpawn.transform.position, MissileSpawn.transform.rotation) as GameObject;
                 GameObject missile = MissilePool.GetMissile();
                 if (missile != null)

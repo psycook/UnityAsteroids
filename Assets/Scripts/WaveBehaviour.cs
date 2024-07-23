@@ -4,10 +4,10 @@ using UnityEngine;
 public class WaveBehaviour : MonoBehaviour
 {
     [SerializeField] private float InitialiseDelay = 3.0f;
-    [SerializeField] public GameObject[] ShipPrefabList;
     [SerializeField] public GameObject[] LargeAsteroidPrefabList;
     [SerializeField] public GameObject[] MediumAsteroidPrefabList;
     [SerializeField] public GameObject[] SmallAsteroidPrefabList;
+    [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private GameObject EnemyShipPrefab;
     [SerializeField] private GameObject PlayerSafefyZone;
     [SerializeField] private int EnemyShipFrequency = 1000;
@@ -31,11 +31,9 @@ public class WaveBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (Random.Range(0, EnemyShipFrequency) == 0 && NumberOfEnemies < MaxEnemies)
+        if(CurrentWaveState == AsteroidWaveState.InProgress)
         {
-            GameObject enemyShip = CreateEnemyShip("EnemyShip", EnemyShipPrefab, gameObject);
-            enemyShip.transform.position = new Vector3(-ScreenBounds.x, Random.Range(-ScreenBounds.y, ScreenBounds.y), 0);
-            NumberOfEnemies++;
+            CheckForEnemyShip();
         }
     }
 
@@ -80,6 +78,16 @@ public class WaveBehaviour : MonoBehaviour
     // # Custom Methods #
     // ##################
 
+    private void CheckForEnemyShip()
+    {
+        if (Random.Range(0, EnemyShipFrequency) == 0 && NumberOfEnemies < MaxEnemies)
+        {
+            GameObject enemyShip = CreateEnemyShip("EnemyShip", EnemyShipPrefab, gameObject);
+            enemyShip.transform.position = new Vector3(-ScreenBounds.x, Random.Range(-ScreenBounds.y, ScreenBounds.y), 0);
+            NumberOfEnemies++;
+        }
+    }
+
     public void AsteroidHit(GameObject asteroid)
     {
         AsteroidBehaviour asteroidBehaviour = asteroid.GetComponent<AsteroidBehaviour>();
@@ -93,7 +101,7 @@ public class WaveBehaviour : MonoBehaviour
                 spawnPoints = Constants.FindChildrenWithTag(asteroid, "SpawnPoint");
                 for (int i = 0; i < spawnPoints.Count; i++)
                 {
-                    GameObject newAsteroid = CreateAsteroid($"Asteroid_Medium_{i}", MediumAsteroidPrefabList[Random.Range(0, MediumAsteroidPrefabList.Length)], gameObject);
+                    GameObject newAsteroid = CreateAsteroid($"Asteroid_Medium", MediumAsteroidPrefabList[Random.Range(0, MediumAsteroidPrefabList.Length)], gameObject);
                     newAsteroid.transform.parent = gameObject.transform;
                     newAsteroid.transform.position = spawnPoints[i].transform.position;
                     newAsteroid.transform.rotation = spawnPoints[i].transform.rotation;
@@ -103,10 +111,19 @@ public class WaveBehaviour : MonoBehaviour
                 spawnPoints = Constants.FindChildrenWithTag(asteroid, "SpawnPoint");
                 for (int i = 0; i < spawnPoints.Count; i++)
                 {
-                    GameObject newAsteroid = CreateAsteroid($"Asteroid_Small_{i}", SmallAsteroidPrefabList[Random.Range(0, SmallAsteroidPrefabList.Length)], gameObject);
+                    GameObject newAsteroid = CreateAsteroid($"Asteroid_Small", SmallAsteroidPrefabList[Random.Range(0, SmallAsteroidPrefabList.Length)], gameObject);
                     newAsteroid.transform.parent = gameObject.transform;
                     newAsteroid.transform.position = spawnPoints[i].transform.position;
                     newAsteroid.transform.rotation = spawnPoints[i].transform.rotation;
+                }
+                break;
+            case AsteroidSize.Small:
+                // find the number of asteroids left in the scene
+                GameObject[] asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
+                if(asteroids.Length == 1)
+                {
+                    Debug.Log("No more asteroids, starting next wave");
+                    CurrentWaveState = AsteroidWaveState.Finished;
                 }
                 break;
         }
@@ -163,7 +180,7 @@ public class WaveBehaviour : MonoBehaviour
         {
             int randomAsteroid = Random.Range(0, LargeAsteroidPrefabList.Length);
             GameObject prefab = LargeAsteroidPrefabList[randomAsteroid];
-            GameObject newAsteroid = CreateAsteroid($"Asteroid_{i}", prefab, gameObject);
+            GameObject newAsteroid = CreateAsteroid("Asteroid_Large", prefab, gameObject);
             float x = 0.0f, y = 0.0f;
             bool isPositionValid = false;
             while (!isPositionValid)
@@ -188,6 +205,10 @@ public class WaveBehaviour : MonoBehaviour
             ActiveAsteroids.Add(newAsteroid);
         }
         CurrentWaveState = AsteroidWaveState.InProgress;
+
+        // create player
+        GameObject player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+        player.name = "Player";
     }
 
     private void FinishWave()
