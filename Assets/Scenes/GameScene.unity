@@ -186,7 +186,7 @@ MonoBehaviour:
   PlayerSafefyZone: {fileID: 1442422451}
   EnemyShipFrequency: 1000
   SeparationDistance: 3
-  NumberOfAsteroids: 3
+  NumberOfAsteroids: 1
   MaxEnemies: 2
   _currentWaveState: 0
 --- !u!1 &304144674
@@ -1293,7 +1293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e532c7a1cc54efb830ea5fe0e4baef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 853655630889574089, guid: c17e6660d29519349b51b6c8c9f3c581, type: 3}
+  MissilePrefab: {fileID: 853655630889574089, guid: c17e6660d29519349b51b6c8c9f3c581, type: 3}
   PoolSize: 10
   CanGrow: 1
 --- !u!4 &1992728087

@@ -206,9 +206,16 @@ public class WaveBehaviour : MonoBehaviour
         }
         CurrentWaveState = AsteroidWaveState.InProgress;
 
-        // create player
-        GameObject player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
-        player.name = "Player";
+        if(PlayerPrefab)
+        {
+            GameObject player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+            player.name = "Player";
+        }
+        else 
+        {
+            Debug.Log("PlayerPrefab not set, must be the intro scene.");
+        }
+
     }
 
     private void FinishWave()

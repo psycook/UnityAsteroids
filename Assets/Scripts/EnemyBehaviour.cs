@@ -69,25 +69,22 @@ public class EnemyBehaviour : MonoBehaviour
         if (Random.Range(0, ShootFrequency) == 0)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
+            Vector3 playerPosition = new Vector3(0, 0, 0);
             if (player)
             {
-                Vector3 playerPosition = player.transform.position;
-                float angle = Random.Range(0, 360);
-                float distance = Random.Range(1.0f, (Size == EnemySize.Small) ? 2.0f : 4.0f);
-                Vector3 targetPosition = new Vector3(playerPosition.x + Mathf.Cos(angle) * distance, playerPosition.y + Mathf.Sin(angle) * distance, 0);
-                Vector3 direction = (targetPosition - transform.position).normalized;
-                //GameObject missile = Instantiate(MissilePrefab, MissileSpawn.transform.position, MissileSpawn.transform.rotation) as GameObject;
-                GameObject missile = MissilePool.GetMissile();
-                if (missile != null)
-                {
-                    missile.transform.position = transform.position;
-                    missile.transform.rotation = Quaternion.identity;
-                    missile.GetComponent<Rigidbody2D>().AddForce(direction * MissleSpeed);
-                }
+                playerPosition = player.transform.position;
             }
-            else
+            float angle = Random.Range(0, 360);
+            float distance = Random.Range(1.0f, (Size == EnemySize.Small) ? 2.0f : 4.0f);
+            Vector3 targetPosition = new Vector3(playerPosition.x + Mathf.Cos(angle) * distance, playerPosition.y + Mathf.Sin(angle) * distance, 0);
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            //GameObject missile = Instantiate(MissilePrefab, MissileSpawn.transform.position, MissileSpawn.transform.rotation) as GameObject;
+            GameObject missile = MissilePool.GetMissile();
+            if (missile != null)
             {
-                Debug.Log("Player not found, what is that about?");
+                missile.transform.position = transform.position;
+                missile.transform.rotation = Quaternion.identity;
+                missile.GetComponent<Rigidbody2D>().AddForce(direction * MissleSpeed);
             }
         }
     }

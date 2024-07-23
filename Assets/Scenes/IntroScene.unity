@@ -1393,6 +1393,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 947103087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1118322426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118322428}
+  - component: {fileID: 1118322427}
+  m_Layer: 0
+  m_Name: EnemyMissilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1118322427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118322426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e532c7a1cc54efb830ea5fe0e4baef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MissilePrefab: {fileID: 853655630889574089, guid: c17e6660d29519349b51b6c8c9f3c581, type: 3}
+  PoolSize: 10
+  CanGrow: 1
+--- !u!4 &1118322428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118322426}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -41.68598, y: 6.186481, z: 324.37375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1119324359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,7 +1470,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialiseDelay: 0.1
-  ShipPrefabList: []
   LargeAsteroidPrefabList:
   - {fileID: 4299814585972296552, guid: 520ccc909c3d55a468bafa5b66e867cb, type: 3}
   - {fileID: 4299814585972296552, guid: 82876e9ec36644e4b924ec2b988a4a45, type: 3}
@@ -1436,12 +1482,13 @@ MonoBehaviour:
   - {fileID: 4299814585972296552, guid: ab50248f874ca054faa1ce5c36ce3adc, type: 3}
   - {fileID: 4299814585972296552, guid: f2b5eed1ec1a75f4db6281f571d49aa2, type: 3}
   - {fileID: 4299814585972296552, guid: c92a4d0ef29c12e4b8c9cb03520ef7b4, type: 3}
+  PlayerPrefab: {fileID: 0}
   EnemyShipPrefab: {fileID: 7780507959879282187, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
+  PlayerSafefyZone: {fileID: 1759389394}
   EnemyShipFrequency: 1000
   SeparationDistance: 3
   NumberOfAsteroids: 11
-  MaxEnemies: 10
-  PlayerSafefyZone: {fileID: 1759389394}
+  MaxEnemies: 7
   _currentWaveState: 0
 --- !u!4 &1119324361
 Transform:
@@ -2242,3 +2289,4 @@ SceneRoots:
   - {fileID: 149284419}
   - {fileID: 376211663}
   - {fileID: 1119324361}
+  - {fileID: 1118322428}

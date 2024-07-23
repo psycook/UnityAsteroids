@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class EnemyMissilePool : MonoBehaviour
 {
-    [SerializeField] private GameObject Prefab;
+    [SerializeField] private GameObject MissilePrefab;
     [SerializeField] private int PoolSize = 10;
     [SerializeField] private bool CanGrow = true;
     private List<GameObject> Pool = new List<GameObject>();
@@ -40,7 +40,7 @@ public class EnemyMissilePool : MonoBehaviour
 
     public GameObject CreateMissile(Vector3 position, Quaternion rotation)
     {
-        GameObject missile = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
+        GameObject missile = Instantiate(MissilePrefab, Vector3.zero, Quaternion.identity);
         missile.name = "EnemyMissile";
         missile.tag = "EnemyMissile";
         missile.SetActive(false);
