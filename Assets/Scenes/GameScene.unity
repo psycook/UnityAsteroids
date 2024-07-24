@@ -929,7 +929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1442422453}
   - component: {fileID: 1442422452}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: PlayerSafetyBounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -961,10 +961,10 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
