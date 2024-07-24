@@ -5,10 +5,10 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject Thruster;
     [SerializeField] private GameObject MissileSpawn;
+    [SerializeField] private PlayerMissilePool MissilePool;
+    [SerializeField] private float MovementSpeed = 100.0f;
     [SerializeField] private InputAction MovementAction;
     [SerializeField] private InputAction FireAction;
-    [SerializeField] private float MovementSpeed = 100.0f;
-    [SerializeField] private PlayerMissilePool MissilePool;
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private float Width;
@@ -40,13 +40,10 @@ public class PlayerBehaviour : MonoBehaviour
         MissilePool = GameObject.Find("PlayerMissilePool").GetComponent<PlayerMissilePool>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // if fire is pressed, fire a missile
         if (FireAction.triggered)
         {
-            //GameObject missile = Instantiate(MissilePrefab, MissileSpawn.transform.position, MissileSpawn.transform.rotation) as GameObject;
             GameObject missile = MissilePool.GetMissile();
             if (missile != null)
             {
@@ -73,22 +70,18 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsThrusting)
         {
             Thruster.SetActive(true);
-            //randomize the y scale of the thruster
-            float yScale = Random.Range(0.5f, 1.0f);
-            Thruster.transform.localScale = new Vector3(1, yScale, 1);
+            Thruster.transform.localScale = new Vector3(1, Random.Range(0.5f, 1.0f), 1);
         }
         else
         {
             Thruster.SetActive(false);
         }
 
-        // apply force to the player based on up input
         if(movement.y > 0)
         {
             GetComponent<Rigidbody2D>().AddForce(transform.up * movement.y * Time.deltaTime * MovementSpeed);
         }
 
-        // wrap the player around the screen
         Vector3 viewPos = transform.position;
         if (viewPos.x > ScreenBounds.x + Width)
         {
@@ -107,5 +100,28 @@ public class PlayerBehaviour : MonoBehaviour
             viewPos.y = ScreenBounds.y + Height;
         }
         transform.position = viewPos;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Player hit: " + other.gameObject.name);
+
+        switch(other.gameObject.tag)
+        {
+            case "EnemyMissile":
+                other.gameObject.SetActive(false);
+                Destroy(gameObject);
+                break;
+            case "Enemy":
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+                break;    
+            case "Asteroid":
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+                break;
+            default:
+                break;
+        }
     }
 }
