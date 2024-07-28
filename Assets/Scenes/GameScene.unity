@@ -184,9 +184,9 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 4737522686513843787, guid: 956092510293747938429b59e796dea2, type: 3}
   EnemyShipPrefab: {fileID: 7780507959879282187, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
   PlayerSafefyZone: {fileID: 1442422451}
-  EnemyShipFrequency: 1000
+  EnemyShipFrequency: 1500
   SeparationDistance: 3
-  NumberOfAsteroids: 11
+  NumberOfAsteroids: 1
   MaxEnemies: 2
   _currentWaveState: 0
 --- !u!1 &304144674
