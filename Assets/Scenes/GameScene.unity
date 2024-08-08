@@ -184,9 +184,14 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 4737522686513843787, guid: 956092510293747938429b59e796dea2, type: 3}
   EnemyShipPrefab: {fileID: 7780507959879282187, guid: c64ba5722d1d98e4190af923de2e7345, type: 3}
   PlayerSafefyZone: {fileID: 1442422451}
-  EnemyShipFrequency: 1500
+  BigExplosionAudioClip: {fileID: 8300000, guid: 489899f218f201f41a7499d805181730, type: 3}
+  MediumExplosionAudioClip: {fileID: 8300000, guid: 1550fa26d8197234d9a38c8a9de3d8fa, type: 3}
+  SmallExplosionAudioClip: {fileID: 8300000, guid: 126702072a8475c47a7c1c7d94a7fde8, type: 3}
   SeparationDistance: 3
   NumberOfAsteroids: 1
+  MinEnemySpawnRate: 2
+  MaxEnemySpawnRate: 4
+  EnemyShipFrequency: 5
   MaxEnemies: 2
   _currentWaveState: 0
 --- !u!1 &304144674
