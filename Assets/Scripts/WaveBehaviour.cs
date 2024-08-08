@@ -13,14 +13,18 @@ public class WaveBehaviour : MonoBehaviour
     [SerializeField] private AudioClip BigExplosionAudioClip;
     [SerializeField] private AudioClip MediumExplosionAudioClip;
     [SerializeField] private AudioClip SmallExplosionAudioClip;    
-    [SerializeField] private int EnemyShipFrequency = 1000;
     [SerializeField] public float SeparationDistance = 3.0f;
     [SerializeField] public int NumberOfAsteroids = 3;
+    [SerializeField] private float MinEnemySpawnRate = 2.0f;
+    [SerializeField] private float MaxEnemySpawnRate = 4.0f;
+    [SerializeField] private int EnemyShipFrequency = 5;
     [SerializeField] public int MaxEnemies = 2;
     
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private int NumberOfEnemies = 0;
+    private float currentEnemySpawnRate = 10.0f;
+    private float enemySpawnTimer = 0.0f;
 
     // #####################
     // # Lifecycle Methods #
@@ -30,6 +34,7 @@ public class WaveBehaviour : MonoBehaviour
     {
         MainCamera = Camera.main;
         ScreenBounds = MainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, MainCamera.transform.position.z));
+        SetEnemyRandomSpawnRate();
     }
 
     void Update()
@@ -81,16 +86,28 @@ public class WaveBehaviour : MonoBehaviour
     // # Custom Methods #
     // ##################
 
-    private void CheckForEnemyShip()
+    private void SetEnemyRandomSpawnRate()
     {
-        if (Random.Range(0, EnemyShipFrequency) == 0 && NumberOfEnemies < MaxEnemies)
+        currentEnemySpawnRate = Random.Range(MinEnemySpawnRate, MaxEnemySpawnRate);
+        Debug.Log($"Next enemy spawn in {currentEnemySpawnRate} seconds");
+    }
+
+private void CheckForEnemyShip()
+{
+    enemySpawnTimer += Time.deltaTime;    
+    if (enemySpawnTimer >= currentEnemySpawnRate && NumberOfEnemies < MaxEnemies)
+    {
+        Debug.Log("Checking for spawning enemy ship");
+        if (Random.Range(0, EnemyShipFrequency) == 0)
         {
             GameObject enemyShip = CreateEnemyShip("EnemyShip", EnemyShipPrefab, gameObject);
             enemyShip.transform.position = new Vector3(-ScreenBounds.x, Random.Range(-ScreenBounds.y, ScreenBounds.y), 0);
             NumberOfEnemies++;
         }
+        enemySpawnTimer = 0.0f;
+        SetEnemyRandomSpawnRate();
     }
-
+}
     public void AsteroidHit(GameObject asteroid)
     {
         AsteroidBehaviour asteroidBehaviour = asteroid.GetComponent<AsteroidBehaviour>();
