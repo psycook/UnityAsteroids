@@ -52,7 +52,7 @@ public class WaveBehaviour : MonoBehaviour
     [SerializeField] private AsteroidWaveState _currentWaveState;
 
     public delegate void OnWaveStateChanged(AsteroidWaveState newState);
-    public event OnWaveStateChanged OnWaveStateChange;
+    public static event OnWaveStateChanged OnWaveStateChange;
 
     public AsteroidWaveState CurrentWaveState
     {
@@ -66,7 +66,7 @@ public class WaveBehaviour : MonoBehaviour
 
     public delegate void OnAsteroidHit(int points);
 
-    public event OnAsteroidHit OnAsteroidHitEvent;
+    public static event OnAsteroidHit OnAsteroidHitEvent;
 
     public void AsteroidHitEvent(int points)
     {
@@ -75,7 +75,7 @@ public class WaveBehaviour : MonoBehaviour
 
     public delegate void OnEnemyShipHit(int points);
 
-    public event OnEnemyShipHit OnEnemyShipHitEvent;
+    public static event OnEnemyShipHit OnEnemyShipHitEvent;
 
     public void EnemyShipHitEvent(int points)
     {

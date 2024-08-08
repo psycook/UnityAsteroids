@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -27,20 +25,23 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     {
         PlayerBehaviour.OnPlayerCreated += OnPlayerCreated;
         PlayerBehaviour.OnPlayerDestroyed += OnPlayerDestroyed;
+        WaveBehaviour.OnWaveStateChange += OnAsteroidWaveStateChanged;
+        WaveBehaviour.OnAsteroidHitEvent += AddScore;
+        WaveBehaviour.OnEnemyShipHitEvent += AddScore;
     }
 
     private void OnDisable()
     {
         PlayerBehaviour.OnPlayerCreated -= OnPlayerCreated;
         PlayerBehaviour.OnPlayerDestroyed -= OnPlayerDestroyed;
+        WaveBehaviour.OnWaveStateChange -= OnAsteroidWaveStateChanged;
+        WaveBehaviour.OnAsteroidHitEvent -= AddScore;
+        WaveBehaviour.OnEnemyShipHitEvent -= AddScore;
     }   
 
     void Start()
     {
         AsteroidsWaveBehaviour = AsteroidsWave.GetComponent<WaveBehaviour>();
-        AsteroidsWaveBehaviour.OnWaveStateChange += OnAsteroidWaveStateChanged;
-        AsteroidsWaveBehaviour.OnAsteroidHitEvent += AddScore;
-        AsteroidsWaveBehaviour.OnEnemyShipHitEvent += AddScore;
         UpdateLives();
         Invoke("NextWave", 1.0f);
     }
@@ -51,9 +52,6 @@ public class GameSceneManagerBehaviour : MonoBehaviour
         {
             StopCoroutine(FlashingTextCoroutine);
         }
-        AsteroidsWaveBehaviour.OnWaveStateChange -= OnAsteroidWaveStateChanged;
-        AsteroidsWaveBehaviour.OnAsteroidHitEvent -= AddScore;
-        AsteroidsWaveBehaviour.OnEnemyShipHitEvent -= AddScore;
     }
 
     // #################
@@ -62,12 +60,12 @@ public class GameSceneManagerBehaviour : MonoBehaviour
 
     private void OnPlayerCreated(PlayerBehaviour player)
     {
-        Debug.Log("Player Created");
+        Debug.Log("Player Created" + player);
     }
 
     private void OnPlayerDestroyed(PlayerBehaviour player)
     {
-        Debug.Log("Player Destroyed");
+        Debug.Log("Player Destroyed " + player);
         OnPlayerHit();
     }
 

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,8 +23,10 @@ public class PlayerBehaviour : MonoBehaviour
     // # Events # 
     // ##########
 
-    public static event Action<PlayerBehaviour> OnPlayerCreated;
-    public static event Action<PlayerBehaviour> OnPlayerDestroyed;
+    public delegate void OnPlayerCreatedAction(PlayerBehaviour player);
+    public delegate void OnPlayerDestroyedAction(PlayerBehaviour player);
+    public static event OnPlayerCreatedAction OnPlayerCreated;
+    public static event OnPlayerDestroyedAction OnPlayerDestroyed;
 
     // #######################
     // # Lifecycle Functions # 
@@ -51,7 +52,10 @@ public class PlayerBehaviour : MonoBehaviour
         Height = transform.GetComponent<LineRenderer>().bounds.extents.y;
         MissilePool = GameObject.Find("PlayerMissilePool").GetComponent<PlayerMissilePool>();
         ThrustAudioSource = GetComponent<AudioSource>();
-        OnPlayerCreated?.Invoke(this);
+        if(OnPlayerCreated != null)
+        {
+            OnPlayerCreated(this);
+        }
     }
 
     void Update()
@@ -85,7 +89,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (IsThrusting)
         {
             Thruster.SetActive(true);
-            Thruster.transform.localScale = new Vector3(1, UnityEngine.Random.Range(0.5f, 1.0f), 1);
+            Thruster.transform.localScale = new Vector3(1, Random.Range(0.5f, 1.0f), 1);
             if(!ThrustAudioSource.isPlaying)
             {
                 ThrustAudioSource.PlayOneShot(ThrustAudioClip);
@@ -142,6 +146,10 @@ public class PlayerBehaviour : MonoBehaviour
             AudioManager.Instance.PlaySound(HitAudioClip, 1.0f);
         }
         Destroy(gameObject);
-        OnPlayerDestroyed?.Invoke(this);
+
+        if(OnPlayerDestroyed != null)
+        {
+            OnPlayerDestroyed(this);
+        }
     }
 }
