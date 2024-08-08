@@ -19,6 +19,7 @@ public class WaveBehaviour : MonoBehaviour
     [SerializeField] private float MaxEnemySpawnRate = 4.0f;
     [SerializeField] private int EnemyShipFrequency = 5;
     [SerializeField] public int MaxEnemies = 2;
+    
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private int NumberOfEnemies = 0;
@@ -88,7 +89,6 @@ public class WaveBehaviour : MonoBehaviour
     private void SetEnemyRandomSpawnRate()
     {
         currentEnemySpawnRate = Random.Range(MinEnemySpawnRate, MaxEnemySpawnRate);
-        Debug.Log($"Next enemy spawn in {currentEnemySpawnRate} seconds");
     }
 
 private void CheckForEnemyShip()
@@ -96,7 +96,6 @@ private void CheckForEnemyShip()
     enemySpawnTimer += Time.deltaTime;    
     if (enemySpawnTimer >= currentEnemySpawnRate && NumberOfEnemies < MaxEnemies)
     {
-        Debug.Log("Checking for spawning enemy ship");
         if (Random.Range(0, EnemyShipFrequency) == 0)
         {
             GameObject enemyShip = CreateEnemyShip("EnemyShip", EnemyShipPrefab, gameObject);
@@ -152,7 +151,6 @@ private void CheckForEnemyShip()
                 GameObject[] asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
                 if(asteroids.Length == 1)
                 {
-                    Debug.Log("No more asteroids, starting next wave");
                     CurrentWaveState = AsteroidWaveState.Finished;
                 }
                 break;

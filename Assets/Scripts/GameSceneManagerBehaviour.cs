@@ -23,15 +23,52 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     // # Lifecycle Methods #
     // #####################
 
+    private void OnEnable()
+    {
+        PlayerBehaviour.OnPlayerCreated += OnPlayerCreated;
+        PlayerBehaviour.OnPlayerDestroyed += OnPlayerDestroyed;
+    }
+
+    private void OnDisable()
+    {
+        PlayerBehaviour.OnPlayerCreated -= OnPlayerCreated;
+        PlayerBehaviour.OnPlayerDestroyed -= OnPlayerDestroyed;
+    }   
+
     void Start()
     {
-        // register for asteroid wave events
         AsteroidsWaveBehaviour = AsteroidsWave.GetComponent<WaveBehaviour>();
         AsteroidsWaveBehaviour.OnWaveStateChange += OnAsteroidWaveStateChanged;
         AsteroidsWaveBehaviour.OnAsteroidHitEvent += AddScore;
         AsteroidsWaveBehaviour.OnEnemyShipHitEvent += AddScore;
         UpdateLives();
         Invoke("NextWave", 1.0f);
+    }
+
+    void Destroy()
+    {
+        if (FlashingTextCoroutine != null)
+        {
+            StopCoroutine(FlashingTextCoroutine);
+        }
+        AsteroidsWaveBehaviour.OnWaveStateChange -= OnAsteroidWaveStateChanged;
+        AsteroidsWaveBehaviour.OnAsteroidHitEvent -= AddScore;
+        AsteroidsWaveBehaviour.OnEnemyShipHitEvent -= AddScore;
+    }
+
+    // #################
+    // # Event Methods #
+    // #################
+
+    private void OnPlayerCreated(PlayerBehaviour player)
+    {
+        Debug.Log("Player Created");
+    }
+
+    private void OnPlayerDestroyed(PlayerBehaviour player)
+    {
+        Debug.Log("Player Destroyed");
+        OnPlayerHit();
     }
 
     // ##################
@@ -55,6 +92,11 @@ public class GameSceneManagerBehaviour : MonoBehaviour
                 InfoText.text = "ASTEROIDS DESTROYED";
                 break;
         }
+    }
+
+    private void OnPlayerHit()
+    {
+        DecrementLives();
     }
 
     public void AddScore(int score)
@@ -111,14 +153,11 @@ public class GameSceneManagerBehaviour : MonoBehaviour
 
     private void UpdateLives()
     {
-        // find the DipalyLives object
         GameObject displayLives = GameObject.Find("DisplayLives");
-        // remove all children
         foreach (Transform child in displayLives.transform)
         {
             Destroy(child.gameObject);
         }
-        // add the correct number of lives
         for (int i = 0; i < Lives; i++)
         {
             GameObject life = Instantiate(PlayerLife, displayLives.transform);
