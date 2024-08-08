@@ -19,7 +19,6 @@ public class WaveBehaviour : MonoBehaviour
     [SerializeField] private float MaxEnemySpawnRate = 4.0f;
     [SerializeField] private int EnemyShipFrequency = 5;
     [SerializeField] public int MaxEnemies = 2;
-    
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private int NumberOfEnemies = 0;

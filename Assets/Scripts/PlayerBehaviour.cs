@@ -7,15 +7,17 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private GameObject MissileSpawn;
     [SerializeField] private PlayerMissilePool MissilePool;
     [SerializeField] private AudioClip FireAudioClip;
+    [SerializeField] private AudioClip HitAudioClip;
+    [SerializeField] private AudioClip ThrustAudioClip;
     [SerializeField] private float MovementSpeed = 100.0f;
     [SerializeField] private InputAction MovementAction;
     [SerializeField] private InputAction FireAction;
- 
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private float Width;
     private float Height;
     private bool IsThrusting = false;
+    private AudioSource ThrustAudioSource;
 
     // #######################
     // # Lifecycle Functions # 
@@ -40,6 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
         Width = transform.GetComponent<LineRenderer>().bounds.extents.x;
         Height = transform.GetComponent<LineRenderer>().bounds.extents.y;
         MissilePool = GameObject.Find("PlayerMissilePool").GetComponent<PlayerMissilePool>();
+        ThrustAudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -74,6 +77,10 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Thruster.SetActive(true);
             Thruster.transform.localScale = new Vector3(1, Random.Range(0.5f, 1.0f), 1);
+            if(!ThrustAudioSource.isPlaying)
+            {
+                ThrustAudioSource.PlayOneShot(ThrustAudioClip);
+            }
         }
         else
         {
@@ -113,18 +120,20 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case "EnemyMissile":
                 other.gameObject.SetActive(false);
-                Destroy(gameObject);
                 break;
             case "Enemy":
                 Destroy(other.gameObject);
-                Destroy(gameObject);
                 break;    
             case "Asteroid":
                 Destroy(other.gameObject);
-                Destroy(gameObject);
                 break;
             default:
                 break;
+        }
+        Destroy(gameObject);
+        if(HitAudioClip != null)
+        {
+            AudioManager.Instance.PlaySound(HitAudioClip, 1.0f);
         }
     }
 }
