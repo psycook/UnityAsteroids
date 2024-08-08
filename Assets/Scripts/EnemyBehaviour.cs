@@ -9,6 +9,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private int ShootFrequency = 200;
     [SerializeField] private GameObject MissilePrefab;
     [SerializeField] private float MissleSpeed = 100.0f;
+    [SerializeField] private AudioClip SmallEnemyAudioClip;
+    [SerializeField] private AudioClip LargeEnemyAudioClip;
     public Vector2 ScreenBounds { get; set; }
     private float Width;
     private float Height;
@@ -17,7 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
     private EnemySize Size;
     private EnemyMissilePool MissilePool;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         EnemySize size = PossibleSizesArray[Random.Range(0, PossibleSizesArray.Length)];
@@ -25,10 +27,18 @@ public class EnemyBehaviour : MonoBehaviour
         switch (size)
         {
             case EnemySize.Small:
+                if (SmallEnemyAudioClip)
+                {
+                    AudioManager.Instance.PlaySound(SmallEnemyAudioClip, 1.0f);
+                }
                 transform.localScale = new Vector3(0.3f, 0.22f, 0.5f);
                 Points = 200;
                 break;
             case EnemySize.Large:
+                if (LargeEnemyAudioClip)
+                {
+                    AudioManager.Instance.PlaySound(LargeEnemyAudioClip, 1.0f);
+                }
                 transform.localScale = new Vector3(0.4f, 0.33f, 1.0f);
                 Points = 100;
                 break;
@@ -43,7 +53,6 @@ public class EnemyBehaviour : MonoBehaviour
         MissilePool = GameObject.Find("EnemyMissilePool").GetComponent<EnemyMissilePool>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector3 viewPos = transform.position;
@@ -65,7 +74,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
         transform.position = viewPos;
 
-        // find the player gameobject
         if (Random.Range(0, ShootFrequency) == 0)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -78,7 +86,6 @@ public class EnemyBehaviour : MonoBehaviour
             float distance = Random.Range(1.0f, (Size == EnemySize.Small) ? 2.0f : 4.0f);
             Vector3 targetPosition = new Vector3(playerPosition.x + Mathf.Cos(angle) * distance, playerPosition.y + Mathf.Sin(angle) * distance, 0);
             Vector3 direction = (targetPosition - transform.position).normalized;
-            //GameObject missile = Instantiate(MissilePrefab, MissileSpawn.transform.position, MissileSpawn.transform.rotation) as GameObject;
             GameObject missile = MissilePool.GetMissile();
             if (missile != null)
             {

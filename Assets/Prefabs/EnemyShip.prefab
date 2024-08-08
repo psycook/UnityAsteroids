@@ -248,3 +248,5 @@ MonoBehaviour:
   ShootFrequency: 200
   MissilePrefab: {fileID: 853655630889574089, guid: c17e6660d29519349b51b6c8c9f3c581, type: 3}
   MissleSpeed: 100
+  SmallEnemyAudioClip: {fileID: 8300000, guid: 4aefb1701cb17e849ba3eb10f45d5c32, type: 3}
+  LargeEnemyAudioClip: {fileID: 8300000, guid: 950bc2b89e5bfac4e9942ec129d408e6, type: 3}

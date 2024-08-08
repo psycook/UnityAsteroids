@@ -6,18 +6,20 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private GameObject Thruster;
     [SerializeField] private GameObject MissileSpawn;
     [SerializeField] private PlayerMissilePool MissilePool;
+    [SerializeField] private AudioClip FireAudioClip;
     [SerializeField] private float MovementSpeed = 100.0f;
     [SerializeField] private InputAction MovementAction;
     [SerializeField] private InputAction FireAction;
+ 
     private Camera MainCamera;
     private Vector2 ScreenBounds;
     private float Width;
     private float Height;
     private bool IsThrusting = false;
 
-    // ######################
-    // # Lifecycle Fuctions # 
-    // ######################
+    // #######################
+    // # Lifecycle Functions # 
+    // #######################
 
     void OnEnable()
     {
@@ -50,6 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
                 missile.transform.position = MissileSpawn.transform.position;
                 missile.transform.rotation = MissileSpawn.transform.rotation;
                 missile.GetComponent<PlayerMissileBehaviour>().Fire();
+                AudioManager.Instance.PlaySound(FireAudioClip, 1.0f);
             }
         }
 

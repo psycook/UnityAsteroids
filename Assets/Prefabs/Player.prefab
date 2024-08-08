@@ -270,6 +270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Thruster: {fileID: 6836791430561003153}
   MissileSpawn: {fileID: 1831151690574378042}
+  MissilePool: {fileID: 0}
+  MovementSpeed: 100
   MovementAction:
     m_Name: Movement
     m_Type: 0
@@ -336,7 +338,7 @@ MonoBehaviour:
       m_Action: Fire
       m_Flags: 0
     m_Flags: 0
-  MovementSpeed: 100
+  FireAudioClip: {fileID: 8300000, guid: c42029cdb5583774eb870fcd61734455, type: 3}
 --- !u!1 &6836791430561003153
 GameObject:
   m_ObjectHideFlags: 0

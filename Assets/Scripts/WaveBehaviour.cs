@@ -10,6 +10,9 @@ public class WaveBehaviour : MonoBehaviour
     [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private GameObject EnemyShipPrefab;
     [SerializeField] private GameObject PlayerSafefyZone;
+    [SerializeField] private AudioClip BigExplosionAudioClip;
+    [SerializeField] private AudioClip MediumExplosionAudioClip;
+    [SerializeField] private AudioClip SmallExplosionAudioClip;    
     [SerializeField] private int EnemyShipFrequency = 1000;
     [SerializeField] public float SeparationDistance = 3.0f;
     [SerializeField] public int NumberOfAsteroids = 3;
@@ -98,6 +101,10 @@ public class WaveBehaviour : MonoBehaviour
         switch (asteroidBehaviour.AsteroidSize)
         {
             case AsteroidSize.Large:
+                if(BigExplosionAudioClip)
+                {
+                    AudioManager.Instance.PlaySound(BigExplosionAudioClip, 1.0f);
+                }
                 spawnPoints = Constants.FindChildrenWithTag(asteroid, "SpawnPoint");
                 for (int i = 0; i < spawnPoints.Count; i++)
                 {
@@ -108,6 +115,10 @@ public class WaveBehaviour : MonoBehaviour
                 }
                 break;
             case AsteroidSize.Medium:
+                if(MediumExplosionAudioClip)
+                {
+                    AudioManager.Instance.PlaySound(MediumExplosionAudioClip, 1.0f);
+                }
                 spawnPoints = Constants.FindChildrenWithTag(asteroid, "SpawnPoint");
                 for (int i = 0; i < spawnPoints.Count; i++)
                 {
@@ -118,7 +129,10 @@ public class WaveBehaviour : MonoBehaviour
                 }
                 break;
             case AsteroidSize.Small:
-                // find the number of asteroids left in the scene
+                if(SmallExplosionAudioClip)
+                {
+                    AudioManager.Instance.PlaySound(SmallExplosionAudioClip, 1.0f);
+                }
                 GameObject[] asteroids = GameObject.FindGameObjectsWithTag("Asteroid");
                 if(asteroids.Length == 1)
                 {
@@ -132,6 +146,10 @@ public class WaveBehaviour : MonoBehaviour
 
     public void EnemyShipHit(GameObject enemyShip)
     {
+        if(BigExplosionAudioClip)
+        {
+            AudioManager.Instance.PlaySound(BigExplosionAudioClip, 1.0f);
+        }
         EnemyShipHitEvent(enemyShip.GetComponent<EnemyBehaviour>().Points);  
         NumberOfEnemies--;
         Destroy(enemyShip);
