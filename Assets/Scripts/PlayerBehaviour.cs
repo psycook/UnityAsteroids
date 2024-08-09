@@ -141,10 +141,12 @@ public class PlayerBehaviour : MonoBehaviour
             default:
                 break;
         }
+
         if(HitAudioClip != null)
         {
             AudioManager.Instance.PlaySound(HitAudioClip, 1.0f);
         }
+        
         Destroy(gameObject);
 
         if(OnPlayerDestroyed != null)

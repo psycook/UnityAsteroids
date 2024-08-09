@@ -6,6 +6,7 @@ public class GameSceneManagerBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject AsteroidsWave;
     [SerializeField] private GameObject PlayerLife;
+    [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private TextMeshProUGUI InfoText;
     [SerializeField] private TextMeshProUGUI ScoreText;
     [SerializeField] private TextMeshProUGUI WaveText;
@@ -66,7 +67,7 @@ public class GameSceneManagerBehaviour : MonoBehaviour
     private void OnPlayerDestroyed(PlayerBehaviour player)
     {
         Debug.Log("Player Destroyed " + player);
-        OnPlayerHit();
+        DecrementLives();
     }
 
     // ##################
@@ -81,7 +82,9 @@ public class GameSceneManagerBehaviour : MonoBehaviour
             case AsteroidWaveState.Initialising:
                 Score = 0;
                 DisplayScore();
+                DisplayWave();
                 DisplayInfo("INCOMING ASTEROIDS", true);
+                Invoke("CreatePlayer", 2.0f);
                 break;
             case AsteroidWaveState.InProgress:
                 HideInfo();
@@ -92,9 +95,17 @@ public class GameSceneManagerBehaviour : MonoBehaviour
         }
     }
 
-    private void OnPlayerHit()
+    public void CreatePlayer() 
     {
-        DecrementLives();
+        if(PlayerPrefab)
+        {
+            GameObject player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
+            player.name = "Player";
+        }
+        else 
+        {
+            Debug.Log("PlayerPrefab not set, must be the intro scene.");
+        }
     }
 
     public void AddScore(int score)
@@ -110,7 +121,7 @@ public class GameSceneManagerBehaviour : MonoBehaviour
 
     private void DisplayWave()
     {
-        ScoreText.text = "WAVE " + WaveNumber.ToString("00");
+        WaveText.text = "WAVE " + WaveNumber.ToString("00");
     }
 
     private void DisplayInfo(string text, bool flashing)
@@ -146,6 +157,11 @@ public class GameSceneManagerBehaviour : MonoBehaviour
         if (Lives == 0)
         {
             DisplayInfo("GAME OVER", true);
+            Invoke("ShowIntroScene", 3.0f);
+        }
+        else 
+        {
+            Invoke("CreatePlayer", 3.0f);
         }
     }
 
@@ -163,6 +179,10 @@ public class GameSceneManagerBehaviour : MonoBehaviour
         }
     }
 
+    private void ShowIntroScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("IntroScene");
+    }
 
     // ##############
     // # Coroutines #

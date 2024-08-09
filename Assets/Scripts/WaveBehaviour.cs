@@ -7,7 +7,6 @@ public class WaveBehaviour : MonoBehaviour
     [SerializeField] public GameObject[] LargeAsteroidPrefabList;
     [SerializeField] public GameObject[] MediumAsteroidPrefabList;
     [SerializeField] public GameObject[] SmallAsteroidPrefabList;
-    [SerializeField] private GameObject PlayerPrefab;
     [SerializeField] private GameObject EnemyShipPrefab;
     [SerializeField] private GameObject PlayerSafefyZone;
     [SerializeField] private AudioClip BigExplosionAudioClip;
@@ -237,17 +236,6 @@ private void CheckForEnemyShip()
             ActiveAsteroids.Add(newAsteroid);
         }
         CurrentWaveState = AsteroidWaveState.InProgress;
-
-        if(PlayerPrefab)
-        {
-            GameObject player = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
-            player.name = "Player";
-        }
-        else 
-        {
-            Debug.Log("PlayerPrefab not set, must be the intro scene.");
-        }
-
     }
 
     private void FinishWave()
