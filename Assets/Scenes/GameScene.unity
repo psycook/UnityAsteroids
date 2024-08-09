@@ -1464,7 +1464,7 @@ MonoBehaviour:
   ScoreText: {fileID: 1576908369}
   WaveText: {fileID: 1835288008}
   CurrentWaveState: 0
-  Lives: 7
+  Lives: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
